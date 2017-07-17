@@ -1,0 +1,45 @@
+
+description = 'GUI Server'
+group 'app.test.com'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'idea'
+apply plugin: 'scala'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// This tells gradle to use its built in compiler rather than Ant tools. If you don't do this then you will get warnings about
+// deprecated target VMs when compiling the scala
+ScalaCompileOptions.metaClass.daemonServer = true
+ScalaCompileOptions.metaClass.fork = true
+ScalaCompileOptions.metaClass.useAnt = false
+ScalaCompileOptions.metaClass.useCompileDaemon = false
+
+ext {
+    scalaVersion = "2.11"
+    scalaMinorVersion = "11"
+    akkaVersion = "10.0.9"
+    akkaAdditionalVersion = "2.5.3"
+}
+
+configurations {
+    compile
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:${scalaVersion}.${scalaMinorVersion}"
+    compile "ch.qos.logback:logback-classic:1.2.3"
+    compile "org.fusesource.jansi:jansi:1.12"
+
+    // We want to use this specific version of Akka parts to avoid incompatibilities with Scala
+    compile "com.typesafe.akka:akka-actor_${scalaVersion}:${akkaAdditionalVersion}"
+    compile "com.typesafe.akka:akka-stream_${scalaVersion}:${akkaAdditionalVersion}"
+    compile "com.typesafe.akka:akka-http_${scalaVersion}:${akkaVersion}"
+    compile "com.typesafe.akka:akka-slf4j_${scalaVersion}:${akkaAdditionalVersion}"
+}
