@@ -1,4 +1,4 @@
-That's simple "Hello World" example built on Scala and Akka Http based on Gradle.    
+That's simple "Hello World" example built on Scala and Akka Http powered by Gradle.    
 
 Main class: com.test.app.HttpServer  
-Run with: http://localhost:8080
+Test with: http://localhost:8080
